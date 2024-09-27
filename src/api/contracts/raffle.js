@@ -1,0 +1,638 @@
+export const CA_Raffle = "0xd5A7C9b326DB400b77DC378d9ff2eF5E8FfEB529";
+export const ABI_Raffle = [{
+    "inputs": [{
+        "internalType": "address",
+        "name": "participant",
+        "type": "address"
+    }, {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+    }],
+    "name": "add",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "address[]",
+        "name": "addrs",
+        "type": "address[]"
+    }],
+    "name": "addAddressesToWhitelist",
+    "outputs": [{
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+    }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+    }],
+    "name": "addAddressToWhitelist",
+    "outputs": [{
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+    }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "round",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "address",
+        "name": "participant",
+        "type": "address"
+    }, {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+    }],
+    "name": "MaxRaffleEntry",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+    }, {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+    }],
+    "name": "OwnershipTransferred",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "address",
+        "name": "participant",
+        "type": "address"
+    }, {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "round",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "completion_code",
+        "type": "uint8"
+    }],
+    "name": "RaffleEntry",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "round",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "participants",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "pot",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "award",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "position",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "address",
+        "name": "winner",
+        "type": "address"
+    }, {
+        "indexed": false,
+        "internalType": "address",
+        "name": "maxwinner",
+        "type": "address"
+    }],
+    "name": "RaffleRound",
+    "type": "event"
+}, {
+    "inputs": [{
+        "internalType": "address[]",
+        "name": "addrs",
+        "type": "address[]"
+    }],
+    "name": "removeAddressesFromWhitelist",
+    "outputs": [{
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+    }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+    }],
+    "name": "removeAddressFromWhitelist",
+    "outputs": [{
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+    }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "bool",
+        "name": "paused",
+        "type": "bool"
+    }],
+    "name": "RunStatusUpdated",
+    "type": "event"
+}, {
+    "inputs": [{
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+    }],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "percent",
+        "type": "uint256"
+    }],
+    "name": "updateAwardPercentage",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "old_percentage",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "new_percentage",
+        "type": "uint256"
+    }],
+    "name": "UpdateAwardPercentage",
+    "type": "event"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+    }],
+    "name": "updateDuration",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "oldDuration",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newDuration",
+        "type": "uint256"
+    }],
+    "name": "UpdateDuration",
+    "type": "event"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+    }],
+    "name": "updateMinimumAmount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "oldAmount",
+        "type": "uint256"
+    }, {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newAmount",
+        "type": "uint256"
+    }],
+    "name": "UpdateMinimumAmount",
+    "type": "event"
+}, {
+    "inputs": [{
+        "internalType": "bool",
+        "name": "paused",
+        "type": "bool"
+    }],
+    "name": "updateRunStatus",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "address",
+        "name": "sponsorDataAddress",
+        "type": "address"
+    }],
+    "name": "updateSponsorData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": false,
+        "internalType": "address",
+        "name": "data",
+        "type": "address"
+    }],
+    "name": "UpdateSponsorData",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": false,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+    }],
+    "name": "WhitelistedAddressAdded",
+    "type": "event"
+}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": false,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+    }],
+    "name": "WhitelistedAddressRemoved",
+    "type": "event"
+}, {
+    "inputs": [],
+    "name": "awardPercentage",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "currentReward",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "award",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "DISQUALIFIED_ENTRY_AMOUNT",
+    "outputs": [{
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "DISQUALIFIED_ENTRY_DUPLICATE",
+    "outputs": [{
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "DISQUALIFIED_ENTRY_LATE",
+    "outputs": [{
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "_round",
+        "type": "uint256"
+    }],
+    "name": "getWinner",
+    "outputs": [{
+        "internalType": "address",
+        "name": "winner",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "isPaused",
+    "outputs": [{
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "minimimumAmount",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+    }],
+    "name": "participants",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "round",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "currentContribution",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "totalRounds",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "totalContribution",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "totalAwards",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "wins",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "QUALIFIED_ENTRY",
+    "outputs": [{
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "round",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "roundDuration",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "name": "rounds",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "winner_position",
+        "type": "uint256"
+    }, {
+        "internalType": "address",
+        "name": "winner",
+        "type": "address"
+    }, {
+        "internalType": "address",
+        "name": "maxWinner",
+        "type": "address"
+    }, {
+        "internalType": "uint256",
+        "name": "maxContribution",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "maxThreshold",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "pot",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "award",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "participants",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "startBlock",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "startTime",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "endBlock",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "endTime",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "finalBlock",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "finalTime",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "sponsorData",
+    "outputs": [{
+        "internalType": "contract ISponsorData",
+        "name": "",
+        "type": "address"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "stage",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "status",
+    "outputs": [{
+        "internalType": "bool",
+        "name": "running",
+        "type": "bool"
+    }, {
+        "internalType": "uint256",
+        "name": "currentRound",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "currentStage",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "lapsed",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "pot",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "award",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "num_participants",
+        "type": "uint256"
+    }, {
+        "internalType": "uint256",
+        "name": "maxContribution",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "totalAwarded",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "totalRaised",
+    "outputs": [{
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+    }],
+    "name": "whitelist",
+    "outputs": [{
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+}]
