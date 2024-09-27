@@ -36,8 +36,8 @@ export default () => {
     <div className="lpCharts">
       <div>
         <div className="chartImages">
-        <img  src="https://cdn.glitch.global/4e92f89c-c3c6-49b2-ac4d-f7e7da3b3c31/83e7282e-d109-4fee-ac6c-a58d799ea73a.image.png?v=1699561660594" />
-        <img src="https://cdn.glitch.global/4e92f89c-c3c6-49b2-ac4d-f7e7da3b3c31/651c0f40-2f8c-4d6c-823d-6c2c0aea4eb5.image.png?v=1699563517245"/>
+        <img  src="https://cdn.glitch.global/10ad345d-6a8c-4191-91aa-f96c3635a8d2/83e7282e-d109-4fee-ac6c-a58d799ea73a.image.png?v=1727454249022" />
+        <img src="https://cdn.glitch.global/10ad345d-6a8c-4191-91aa-f96c3635a8d2/651c0f40-2f8c-4d6c-823d-6c2c0aea4eb5.image.png?v=1727454279183"/>
        
         </div>
          <PoolData
