@@ -1,0 +1,11 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true,  
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "quotes": ["error", "single"]
+  }
+}
