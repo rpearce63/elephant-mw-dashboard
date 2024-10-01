@@ -4,6 +4,7 @@ import {
   getLPBalances,
   getBtcPrice,
   getSVNNPrice,
+  getGNMEPrice,
   getPriceData
 } from "../api/elephant";
 import { formatLargeNumber } from "../api/utils";
@@ -32,6 +33,7 @@ const Header = () => {
   const [hideData, setHideData] = useState(false);
   const [btcPrice, setBtcPrice] = useState(0);
   const [svnnPrice, setSvnnPrice] = useState(0);
+  const [gnmePrice, setGnmePrice] = useState(0);
   const [trunkTreasuryBalance, setTrunkTreasuryBalance] = useState(0);
   const [trunkSuperchargerBalance, setTrunkSuperchargerBalance] = useState(0);
 
@@ -41,11 +43,13 @@ const Header = () => {
       lps,
       btcPrice,
       svnnPrice,
+      gnmePrice
     ] = await Promise.all([
       getPriceData(),
       getLPBalances(),
       getBtcPrice(),
       getSVNNPrice(),
+      getGNMEPrice()
     ]);
 
     setEmPrice(prices.elephantPriceBNB * prices.bnbPrice);
@@ -63,6 +67,7 @@ const Header = () => {
     setRdfBalance(lps.rdfBalance);
     setBtcPrice(btcPrice);
     setSvnnPrice(svnnPrice);
+    setGnmePrice(gnmePrice);
     setTrunkSuperchargerBalance(lps.trunkSuperchargerBalance);
   };
 
@@ -140,6 +145,11 @@ const Header = () => {
           {true && (
             <div className="price-group">
               <PriceData label="SVNN" amount={svnnPrice} prefix="$" decimals={4} />
+            </div>
+          )}
+          {true && (
+            <div className="price-group">
+              <PriceData label="GNME" amount={gnmePrice} prefix="$" decimals={4} />
             </div>
           )}
           <div className="price-group lp-data">

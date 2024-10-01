@@ -673,6 +673,27 @@ export const getSVNNPrice = async () => {
   }
 };
 
+export const getGNMEPrice = async () => {
+  const options = {
+    method: "GET",
+    headers: { "X-API-KEY": "9fef66ede66c4bd7afb4c02b80ce769a" },
+  };
+  try {
+    const response = await axios.get(
+      "https://api.dexscreener.com/latest/dex/tokens/BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38"
+    );
+    const price = response.data.pairs[0].priceUsd;
+    
+    return price;
+  } catch (err) {
+    console.log(err);
+        const response = await axios.get('https://public-api.birdeye.so/defi/price?address=BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38', options);
+    const price = response.data.data.value;
+    return price;
+  }
+};
+
+
 export const calculateStrategy = (
   emPrice,
   emHeld,
