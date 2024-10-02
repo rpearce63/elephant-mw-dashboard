@@ -43,14 +43,14 @@ const Header = () => {
       prices,
       lps,
       btcPrice,
-      svnnPrice,
-      gnmePrice
+      [svnnPrice,
+      gnmePrice]
     ] = await Promise.all([
       getPriceData(),
       getLPBalances(),
       getBtcPrice(),
-      getSVNNPrice(),
-      getGNMEPrice(),
+      //getSVNNPrice(),
+      //getGNMEPrice(),
       getSolanaTokenPrices()
     ]);
 
@@ -146,7 +146,7 @@ const Header = () => {
           </div>
           {true && (
             <div className="price-group">
-              <PriceData label="SVNN" amount={svnnPrice} prefix="$" decimals={4} />
+              <PriceData label="SVNN" amount={svnnPrice} prefix="$" decimals={6} />
             </div>
           )}
           {true && (
