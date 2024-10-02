@@ -69,6 +69,7 @@ const BERTHA = "0xAF0980A0f52954777C491166E7F40DB2B6fBb4Fc";
 const TRUNK_BURN = "0x0000000000000000000000000000000000000001";
 const EM_GRAVEYARD = "0xF7cC784BD260eafC1193D337fFcEA4D6ddA0dd71";
 const GNME = "BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38";
+const SVNN = "DbM7mcJM9zitHanzKmFf7NH4SaEZZDCf5TPEgzwTmuh4";
 
 //New Bertha with BNB when BT switches to BNB
 //const BNB_TREASURY = "0x98F6c7c953Cf4cef0fd632b2509c9e349687FC92"
@@ -702,10 +703,10 @@ const options = {
   };
   try {
     const response = await axios.get(
-      "https://api.dexscreener.com/latest/dex/tokens/DbM7mcJM9zitHanzKmFf7NH4SaEZZDCf5TPEgzwTmuh4,BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38"
+      `https://api.dexscreener.com/latest/dex/tokens/${SVNN},${GNME}`
     );
-    const priceA = response.data.pairs.find(pair => pair.baseToken.address==="DbM7mcJM9zitHanzKmFf7NH4SaEZZDCf5TPEgzwTmuh4").priceUsd;
-    const priceB = response.data.pairs.find(pair => pair.baseToken.address==="BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38").priceUsd;    
+    const priceA = response.data.pairs.find(pair => pair.baseToken.address===SVNN).priceUsd;
+    const priceB = response.data.pairs.find(pair => pair.baseToken.address===GNME).priceUsd;    
     return [priceA, priceB];
   } catch (err) {
     console.log(err);
