@@ -693,6 +693,24 @@ export const getGNMEPrice = async () => {
   }
 };
 
+export const getSolanaTokenPrices = async () => {
+const options = {
+    method: "GET",
+    headers: { "X-API-KEY": "9fef66ede66c4bd7afb4c02b80ce769a" },
+  };
+  try {
+    const response = await axios.get(
+      "https://api.dexscreener.com/latest/dex/tokens/BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38,DbM7mcJM9zitHanzKmFf7NH4SaEZZDCf5TPEgzwTmuh4"
+    );
+    const priceA = response.data.pairs[0].priceUsd;
+    const priceB = response.data.pairs[1].priceUsd;    
+    return [priceA, priceB];
+  } catch (err) {
+    console.log(err);
+    return [0,0];
+  }
+}
+
 
 export const calculateStrategy = (
   emPrice,

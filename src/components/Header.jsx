@@ -5,7 +5,8 @@ import {
   getBtcPrice,
   getSVNNPrice,
   getGNMEPrice,
-  getPriceData
+  getPriceData,
+  getSolanaTokenPrices
 } from "../api/elephant";
 import { formatLargeNumber } from "../api/utils";
 import Subscript from "./Subscript";
@@ -49,7 +50,8 @@ const Header = () => {
       getLPBalances(),
       getBtcPrice(),
       getSVNNPrice(),
-      getGNMEPrice()
+      getGNMEPrice(),
+      //getSolanaTokenPrices()
     ]);
 
     setEmPrice(prices.elephantPriceBNB * prices.bnbPrice);
