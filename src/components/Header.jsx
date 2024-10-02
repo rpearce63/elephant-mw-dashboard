@@ -51,7 +51,7 @@ const Header = () => {
       getBtcPrice(),
       getSVNNPrice(),
       getGNMEPrice(),
-      //getSolanaTokenPrices()
+      getSolanaTokenPrices()
     ]);
 
     setEmPrice(prices.elephantPriceBNB * prices.bnbPrice);

@@ -700,8 +700,9 @@ const options = {
   };
   try {
     const response = await axios.get(
-      "https://api.dexscreener.com/latest/dex/tokens/BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38,DbM7mcJM9zitHanzKmFf7NH4SaEZZDCf5TPEgzwTmuh4"
+      "https://api.dexscreener.com/latest/dex/tokens/DbM7mcJM9zitHanzKmFf7NH4SaEZZDCf5TPEgzwTmuh4,BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38"
     );
+    console.log(response.data)
     const priceA = response.data.pairs[0].priceUsd;
     const priceB = response.data.pairs[1].priceUsd;    
     return [priceA, priceB];
