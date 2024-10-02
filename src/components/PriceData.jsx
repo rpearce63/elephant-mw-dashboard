@@ -1,5 +1,6 @@
 import React from "react";
 import { formatLargeNumber } from "../api/utils";
+import Subscript from "./Subscript";
 
 export default ({
   label,
@@ -16,7 +17,7 @@ export default ({
   const elem = (
     <h3 className={`page-title ${className || ""}`}>
       <div className={`price-data-label`}>{label}</div>
-      {amount && (
+      {amount < 0.0001 ?  <Subscript value={amount} decimals={7} className="price-data-value"/> : (
         <div className={`price-data-value ${s}`}>
           {prefix}
           {formatLargeNumber(amount, decimals)}

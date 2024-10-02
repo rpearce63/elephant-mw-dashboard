@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default ({ value }) => {
+export default ({ value, decimals = 10, className }) => {
   // Convert the value to a string
-  const strValue = Number(value).toFixed(10);
+  const strValue = Number(value).toFixed(decimals);
 
   // Check if the value is in the format $0.0000000X
   const match = strValue.match(/^0\.0*/);
@@ -13,7 +13,7 @@ export default ({ value }) => {
 
     // Create a React component with "sub" notation
     return (
-      <span className="page-title" >
+      <span className={`page-title ${className}`} >
         $0.0<sub style={{fontSize: ".5em"}}>{numberOfZeros}</sub>{strValue.slice(2 + numberOfZeros)}
       </span>
     );
