@@ -705,10 +705,9 @@ const options = {
     const response = await axios.get(
       `https://api.dexscreener.com/latest/dex/tokens/${SVNN},${GNME}`
     );
-    const pricex = response.data.pairs.find(pair => pair.baseToken.address === SVNN)?.priceUsd
-    console.log(response.data.pairs)
-    const priceA = response.data.pairs.find(pair => pair.baseToken.address === GNME)?.priceUsd;
-    const priceB = response.data.pairs.find(pair => pair.baseToken.address === SVNN)?.priceUsd || 0;    
+    
+    const priceA = response.data.pairs.find(pair => pair.baseToken.address === SVNN)?.priceUsd || 0;
+    const priceB = response.data.pairs.find(pair => pair.baseToken.address === GNME)?.priceUsd || 0;    
     return [priceA, priceB];
   } catch (err) {
     console.log(err);
