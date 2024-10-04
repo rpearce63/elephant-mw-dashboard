@@ -706,9 +706,9 @@ const options = {
       `https://api.dexscreener.com/latest/dex/tokens/${SVNN},${GNME}`
     );
     
-    const priceA = response.data.pairs.find(pair => pair.baseToken.address === SVNN)?.priceUsd || 0;
-    const priceB = response.data.pairs.find(pair => pair.baseToken.address === GNME)?.priceUsd || 0;    
-    return [priceA, priceB];
+    const svnn = response.data.pairs.find(pair => pair.baseToken.address === SVNN)?.priceUsd || 0;
+    const gnme = response.data.pairs.find(pair => pair.baseToken.address === GNME)?.priceUsd || 0;    
+    return [svnn, gnme];
   } catch (err) {
     console.log(err);
     return [0,0];
