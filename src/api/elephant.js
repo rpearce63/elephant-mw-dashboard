@@ -706,8 +706,8 @@ const options = {
       `https://api.dexscreener.com/latest/dex/tokens/${SVNN},${GNME}`
     );
     console.log(response.data)
-    const priceA = response.data.pairs.find(pair => pair.baseToken.address===SVNN).priceUsd;
-    const priceB = response.data.pairs.find(pair => pair.baseToken.address===GNME).priceUsd;    
+    const priceA = response.data.pairs.find(pair => pair.baseToken.address === "DbM7mcJM9zitHanzKmFf7NH4SaEZZDCf5TPEgzwTmuh4").priceUsd;
+    const priceB = response.data.pairs.find(pair => pair.baseToken.address === "BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38").priceUsd;    
     return [priceA, priceB];
   } catch (err) {
     console.log(err);
