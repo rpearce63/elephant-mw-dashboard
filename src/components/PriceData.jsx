@@ -17,7 +17,7 @@ export default ({
   const elem = (
     <h3 className={`page-title ${className || ""}`}>
       <div className={`price-data-label`}>{label}</div>
-      {amount < 0.0001 ?  <Subscript value={amount} decimals={7} className="price-data-value"/> : (
+      {amount < 0.001 ?  <Subscript value={amount} decimals={7} className="price-data-value"/> : (
         <div className={`price-data-value ${s}`}>
           {prefix}
           {formatLargeNumber(amount, decimals)}
