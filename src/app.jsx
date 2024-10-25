@@ -41,7 +41,7 @@ export default function Home() {
     <Router>
       <Seo />
       <Container maxWidth="false" className="main-container">
-      {true && <Marquee/>}
+      {false && <Marquee/>}
         <Header />
         <div className="content">
           {/* Router specifies which component to insert here as the main content */}
