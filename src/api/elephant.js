@@ -70,6 +70,7 @@ const TRUNK_BURN = "0x0000000000000000000000000000000000000001";
 const EM_GRAVEYARD = "0xF7cC784BD260eafC1193D337fFcEA4D6ddA0dd71";
 const GNME = "BaDjVCpABEVCdt4LT7ivuzA4izBwJCqnDjrLa8XBtT38";
 const SVNN = "DbM7mcJM9zitHanzKmFf7NH4SaEZZDCf5TPEgzwTmuh4";
+const DOGAI = "Dogg6xWSgkF8KbsHkTWD3Et4J9a8VBLZjrASURXGiLe1";
 
 //New Bertha with BNB when BT switches to BNB
 //const BNB_TREASURY = "0x98F6c7c953Cf4cef0fd632b2509c9e349687FC92"
@@ -703,12 +704,13 @@ const options = {
   };
   try {
     const response = await axios.get(
-      `https://api.dexscreener.com/latest/dex/tokens/${SVNN},${GNME}`
+      `https://api.dexscreener.com/latest/dex/tokens/${SVNN},${GNME}, ${DOGAI}`
     );
     
     const svnn = response.data.pairs.find(pair => pair.baseToken.address === SVNN)?.priceUsd || 0;
     const gnme = response.data.pairs.find(pair => pair.baseToken.address === GNME)?.priceUsd || 0;    
-    return [svnn, gnme];
+    const dogai = response.data.pairs.find(pair => pair.baseToken.address === DOGAI)?.priceUsd || 0;   
+    return [svnn, gnme, dogai];
   } catch (err) {
     console.log(err);
     return [0,0];

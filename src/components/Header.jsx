@@ -35,6 +35,7 @@ const Header = () => {
   const [btcPrice, setBtcPrice] = useState(0);
   const [svnnPrice, setSvnnPrice] = useState(0);
   const [gnmePrice, setGnmePrice] = useState(0);
+  const [solanaPrices, setSolanaPrices] = useState({});
   const [trunkTreasuryBalance, setTrunkTreasuryBalance] = useState(0);
   const [trunkSuperchargerBalance, setTrunkSuperchargerBalance] = useState(0);
 
@@ -44,7 +45,8 @@ const Header = () => {
       lps,
       btcPrice,
       [svnnPrice,
-      gnmePrice]
+      gnmePrice,
+      dogaiPrice]
     ] = await Promise.all([
       getPriceData(),
       getLPBalances(),
@@ -68,9 +70,10 @@ const Header = () => {
     setBtcTurbineBalance(lps.btcTurbineBalance);
     setRdfBalance(lps.rdfBalance);
     setBtcPrice(btcPrice);
-    setSvnnPrice(svnnPrice);
-    setGnmePrice(gnmePrice);
+    // setSvnnPrice(svnnPrice);
+    // setGnmePrice(gnmePrice);
     setTrunkSuperchargerBalance(lps.trunkSuperchargerBalance);
+    setSolanaPrices({svnnPrice, gnmePrice, dogaiPrice});
   };
 
   const setNftAlert = () => {
@@ -146,15 +149,20 @@ const Header = () => {
           </div>
           {true && (
             <div className="price-group">
-              <PriceData label="SVNN" amount={svnnPrice} prefix="$" decimals={6} />
+              <PriceData label="SVNN" amount={solanaPrices.svnnPrice} prefix="$" decimals={6} />
             </div>
           )}
           {true && (
             <div className="price-group">
-              <PriceData label="GNME" amount={gnmePrice} prefix="$" decimals={4} />
+              <PriceData label="GNME" amount={solanaPrices.gnmePrice} prefix="$" decimals={4} />
             </div>
           )}
           {true && (
+            <div className="price-group">
+              <PriceData label="DOGAI" amount={solanaPrices.dogaiPrice} prefix="$" decimals={4} />
+            </div>
+          )}
+          {false && (
             <div className="price-group">
               <PriceData label="BTC" amount={btcPrice} prefix="$"  />
             </div>
