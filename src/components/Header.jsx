@@ -154,6 +154,11 @@ const Header = () => {
               <PriceData label="GNME" amount={gnmePrice} prefix="$" decimals={4} />
             </div>
           )}
+          {true && (
+            <div className="price-group">
+              <PriceData label="BTC" amount={btcPrice} prefix="$"  />
+            </div>
+          )}
           <div className="price-group lp-data">
             <PriceData
               label="LP Elephant"
