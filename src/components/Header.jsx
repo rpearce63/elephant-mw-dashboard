@@ -71,7 +71,7 @@ const Header = () => {
     // setSvnnPrice(svnnPrice);
     // setGnmePrice(gnmePrice);
     setTrunkSuperchargerBalance(lps.trunkSuperchargerBalance);
-    setSolanaPrices({svnnPrice, gnmePrice, dogaiPrice});
+    setSolanaPrices(solanaPrices);
   };
 
   const setNftAlert = () => {
