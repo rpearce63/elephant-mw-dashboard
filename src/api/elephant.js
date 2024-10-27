@@ -704,13 +704,13 @@ const options = {
   };
   try {
     const response = await axios.get(
-      `https://api.dexscreener.com/latest/dex/tokens/${SVNN},${GNME}, ${DOGAI}`
+      `https://api.dexscreener.com/latest/dex/tokens/${SVNN},${GNME},${DOGAI}`
     );
     
     const svnn = response.data.pairs.find(pair => pair.baseToken.address === SVNN)?.priceUsd || 0;
     const gnme = response.data.pairs.find(pair => pair.baseToken.address === GNME)?.priceUsd || 0;    
     const dogai = response.data.pairs.find(pair => pair.baseToken.address === DOGAI)?.priceUsd || 0;   
-    return [svnn, gnme, dogai];
+    return {svnn, gnme, dogai};
   } catch (err) {
     console.log(err);
     return [0,0];

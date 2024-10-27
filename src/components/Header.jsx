@@ -147,17 +147,17 @@ const Header = () => {
           </div>
           {true && (
             <div className="price-group">
-              <PriceData label="SVNN" amount={solanaPrices.svnnPrice} prefix="$" decimals={6} />
+              <PriceData label="SVNN" amount={solanaPrices.svnn} prefix="$" decimals={6} />
             </div>
           )}
           {true && (
             <div className="price-group">
-              <PriceData label="GNME" amount={solanaPrices.gnmePrice} prefix="$" decimals={4} />
+              <PriceData label="GNME" amount={solanaPrices.gnme} prefix="$" decimals={4} />
             </div>
           )}
           {true && (
             <div className="price-group">
-              <PriceData label="DOGAI" amount={solanaPrices.dogaiPrice} prefix="$" decimals={5} />
+              <PriceData label="DOGAI" amount={solanaPrices.dogai} prefix="$" decimals={5} />
             </div>
           )}
           {false && (
