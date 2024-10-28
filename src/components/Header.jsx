@@ -145,26 +145,20 @@ const Header = () => {
 
             <PriceData label="BNB" amount={bnbPrice} prefix="$" />
           </div>
+          <div className="price-group">
           {true && (
-            <div className="price-group">
               <PriceData label="SVNN" amount={solanaPrices.svnn} prefix="$" decimals={6} />
-            </div>
           )}
           {true && (
-            <div className="price-group">
               <PriceData label="GNME" amount={solanaPrices.gnme} prefix="$" decimals={4} />
-            </div>
           )}
           {true && (
-            <div className="price-group">
               <PriceData label="DOGAI" amount={solanaPrices.dogai} prefix="$" decimals={5} />
-            </div>
           )}
           {false && (
-            <div className="price-group">
               <PriceData label="BTC" amount={btcPrice} prefix="$"  />
-            </div>
           )}
+          </div>
           <div className="price-group lp-data">
             <PriceData
               label="LP Elephant"
