@@ -150,10 +150,10 @@ const Header = () => {
               <PriceData label="SVNN" amount={solanaPrices.svnn} prefix="$" decimals={6} />
           )}
           {true && (
-              <PriceData label="GNME" amount={solanaPrices.gnme} prefix="$" decimals={4} />
+              <PriceData label="GNME" amount={solanaPrices.gnme} prefix="$" decimals={4} link="https://www.dextools.io/app/en/solana/pair-explorer/21BS22VKVDqx8iFW9uqVCByLSDSsrwMJ8Nxp4sjQYCb6?t=1730132013489"/>
           )}
           {true && (
-              <PriceData label="DOGAI" amount={solanaPrices.dogai} prefix="$" decimals={5} />
+              <PriceData label="DOGAI" amount={solanaPrices.dogai} prefix="$" decimals={5} link="https://www.dextools.io/app/en/token/dogai?t=1730132013489"/>
           )}
           {false && (
               <PriceData label="BTC" amount={btcPrice} prefix="$"  />
