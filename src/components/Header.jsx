@@ -155,7 +155,7 @@ const Header = () => {
           {true && (
               <PriceData label="DOGAI" amount={solanaPrices.dogai} prefix="$" decimals={5} link="https://www.dextools.io/app/en/token/dogai?t=1730132013489"/>
           )}
-          {false && (
+          {true && (
               <PriceData label="BTC" amount={btcPrice} prefix="$"  />
           )}
           </div>
