@@ -710,6 +710,7 @@ const options = {
     const svnn = response.data.pairs.find(pair => pair.baseToken.address === SVNN)?.priceUsd || 0;
     const gnme = response.data.pairs.find(pair => pair.baseToken.address === GNME)?.priceUsd || 0;    
     const dogai = response.data.pairs.find(pair => pair.baseToken.address === DOGAI)?.priceUsd || 0;   
+    // console.log(response.data.pairs)
     return {svnn, gnme, dogai};
   } catch (err) {
     console.log(err);
