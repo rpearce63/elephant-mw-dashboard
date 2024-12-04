@@ -678,12 +678,10 @@ export default function AccountsTable({ accounts, removeAcct }) {
                               </TableCell>
                               
                               <TableCell align="right">
-                                {formatCurrency(row.rdfAvailable)}
+                                {row.nftsToBeMinted}
                               </TableCell>
                               <TableCell align="right">
-                                {row.futuresUser &&
-                                <FuturesLimiterProgress value={(calculateRateLimiterProgress(row.futuresCompoundDeposits, row.futuresDeposits) * 100)} limiter={row.limiterRate}></FuturesLimiterProgress>
-                                }
+                                {row.nftsMinted}
                               </TableCell>
                             </>
                           )}

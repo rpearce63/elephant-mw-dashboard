@@ -226,7 +226,7 @@ export const getEMBalance = async (address) => {
   return { elephantBalance };
 };
 
-export const processFuturesData = (_user, _available, _uncapped, _depositAPR, futuresActions) => {
+export const processFuturesData = (_user, _available, _uncapped, _depositAPR, futuresActions, _nftEligible) => {
   
   const user = _user;
   const futuresAvailable = web3.utils.fromWei(_available._adjustedAmount);
@@ -251,6 +251,8 @@ export const processFuturesData = (_user, _available, _uncapped, _depositAPR, fu
     : "";
   const futuresLastActionLong = futuresLastAction === "D" ? "Deposit" : "Claim";
   const depositAPR = web3.utils.fromWei(_depositAPR);
+  const nftsToBeMinted = _nftEligible._nftAmount;
+  const nftsMinted = _nftEligible._minted;
 
   return {
     futuresCurrentBalance,
@@ -267,6 +269,8 @@ export const processFuturesData = (_user, _available, _uncapped, _depositAPR, fu
     depositAPR,
     futuresUser: _user.exists,
     limiterRate,
+    nftsToBeMinted,
+    nftsMinted
   };
 };
 
@@ -807,8 +811,7 @@ export const getElephantData = async (address) => {
     _user, _available, _uncapped, _depositAPR, _nftEligible, futuresActions,
     nftWalletBalance, nftStakingBalance, _rewards, totalRewards
   ] = await multicallBatch(calls);
-  console.log()
-  const futures = processFuturesData(_user, _available, _uncapped, _depositAPR, futuresActions);
+  const futures = processFuturesData(_user, _available, _uncapped, _depositAPR, futuresActions, _nftEligible);
   const nft = processNftDataForUser(nftWalletBalance, nftStakingBalance, _rewards, totalRewards);
 
   const userStats = {
