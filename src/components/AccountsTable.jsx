@@ -719,7 +719,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
                               </TableCell>
                             </>
                           )}
-                          <TableCell>
+                          {false && <><TableCell>
                             {calculateStrategy(
                               elephantPrice,
                               row.elephantBalance,
@@ -746,7 +746,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
                               trunkPrice,
                               Number(row.trunkBalance)
                             ).toLocaleString()}
-                          </TableCell>
+                              </TableCell></>}
                         </TableRow>
                       )}
                     </Draggable>
@@ -873,13 +873,13 @@ const TableHeader = ({
             <TableCell align="right">Total NFT Rewards</TableCell>
           </>
         )}
-        <TableCell>
+        {false && <><TableCell>
           <PopupHelp
             message="Allocation of investments as a percentage across Elephant / Futures / NFTs / Trunk"
             trigger={<span>Allocation Strategy (E/F/N/T)%</span>}
           />
-        </TableCell>
-        <TableCell>Total Value (El/F/N/T)</TableCell>
+            </TableCell>
+        <TableCell>Total Value (El/F/N/T)</TableCell></>}
       </TableRow>
     </TableHead>
   );
@@ -1032,7 +1032,7 @@ const TotalsHeader = ({
             </TableCell>
           </>
         )}
-        <TableCell>
+        {false && <><TableCell>
           {calculateStrategy(
             elephantPrice,
             totals.balanceTotal,
@@ -1044,7 +1044,7 @@ const TotalsHeader = ({
             trunkPrice
           )}
         </TableCell>
-        <TableCell>${Number(totals.valueTotal).toLocaleString()}</TableCell>
+            <TableCell>${Number(totals.valueTotal).toLocaleString()}</TableCell></>}
       </TableRow>
       <TableRow>
         <TableCell colSpan={5}>
