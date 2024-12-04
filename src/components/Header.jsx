@@ -342,7 +342,7 @@ const Header = () => {
         {marketSupply > 0 && (
           <Link
             className="nav-link"
-            to="/nfts/0x4D1E19B5A6e68abe4Dc5cE35F161070692802b7C"
+            to={`/nfts/0x4D1E19B5A6e68abe4Dc5cE35F161070692802b7C/${marketSupply} `}
           >
             NFT Marketplace ({marketSupply})
           </Link>

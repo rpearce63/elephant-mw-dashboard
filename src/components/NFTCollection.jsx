@@ -5,7 +5,7 @@ import {getNFTsOfOwner} from "../api/elephant";
 export default () => {
   
   const [nfts, setNfts] = useState([])
-  const {account} = useParams();
+  const {account, count} = useParams();
   const [loading, setLoading] = useState(false);
   
   useEffect(() => {
@@ -28,7 +28,7 @@ export default () => {
   
   
  return <div className="nfts">
-   <h3 className="page-title" style={{width: "100%"}}>Total NFTs: {nfts.length}</h3>
+   <h3 className="page-title" style={{width: "100%"}}>Total NFTs: {nfts.length || count}</h3>
    
    {loading ? <h3 className="page-title">...Loading NFTs</h3> : nfts.map((nft, index) => 
              <div key={index} className="nft">
