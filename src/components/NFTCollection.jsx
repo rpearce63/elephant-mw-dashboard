@@ -6,14 +6,16 @@ export default () => {
   
   const [nfts, setNfts] = useState([])
   const {account} = useParams();
-  
+  const [loading, setLoading] = useState(false);
   
   useEffect(() => {
   
     const getNfts = async (address) => {
+      setLoading(true)
       const nfts = await getNFTsOfOwner(address);
       
       setNfts(nfts.sort((a,b) => b.traits.score - a.traits.score));
+      setLoading(false)
     }
     getNfts(account);
     
@@ -28,7 +30,7 @@ export default () => {
  return <div className="nfts">
    <h3 className="page-title" style={{width: "100%"}}>Total NFTs: {nfts.length}</h3>
    
-   {nfts.map((nft, index) => 
+   {loading ? <h3 className="page-title">...Loading NFTs</h3> : nfts.map((nft, index) => 
              <div key={index} className="nft">
                <a href={`https://bnb.nftscan.com/0xb92afeDC8f8618BE4198fbE5d97adB7C60aB3198/${nft.tokenId}`} target="_blank" rel="noreferrer">
              <img  src={nft.image} width="200" /></a>

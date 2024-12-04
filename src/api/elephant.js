@@ -381,10 +381,16 @@ export const getNFTsOfOwner = async (address) => {
   );
 
   const callData = calls.map((data) => buildFunctionCall(data));
-  const results = await getMulticallResult(callData);
+  const results = [];
+  const nftChunkSize = 400;
+  for(let i = 0; i < callData.length; i += nftChunkSize) {
+    const chunk = callData.slice(i, i + nftChunkSize);
+    const response = await getMulticallResult(chunk);
+    results.push(...response.returnData);
+  }
   const pairs = [];
   const chunkSize = 2;
-  const returnData = results.returnData;
+  const returnData = results;
   for (let i = 0; i < returnData.length; i += chunkSize) {
     const chunk = returnData.slice(i, i + chunkSize);
     pairs.push(chunk);
