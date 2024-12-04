@@ -786,6 +786,7 @@ export const getElephantData = async (address) => {
     [futuresContract, futuresContract.methods.available(address)],
     [futuresContract, futuresContract.methods.availableUncapped(address)],
     [futuresContract, futuresContract.methods.depositAPR(address)],
+    [futuresContract, futuresContract.methods.isNFTEligible(address)],
     [futuresAction, futuresAction.methods.getUser(address)],
     [nftContract, nftContract.methods.balanceOf(address)],
     [nftStakingContract, nftStakingContract.methods.balanceOf(address)],
@@ -803,10 +804,10 @@ export const getElephantData = async (address) => {
     busdBalance,
     usdcBalance,
     rdf,
-    _user, _available, _uncapped, _depositAPR, futuresActions,
+    _user, _available, _uncapped, _depositAPR, _nftEligible, futuresActions,
     nftWalletBalance, nftStakingBalance, _rewards, totalRewards
   ] = await multicallBatch(calls);
-  
+  console.log()
   const futures = processFuturesData(_user, _available, _uncapped, _depositAPR, futuresActions);
   const nft = processNftDataForUser(nftWalletBalance, nftStakingBalance, _rewards, totalRewards);
 

@@ -1,7 +1,26 @@
 //update 8/30/2024 - add claim cooldown period
-export const FUTURES_ADDRESS = "0xc22E924B10e75045C943A2d950F44a89BC208573"; //"0x1f61A437645b403c15775184A91a6d98ED3FDAEB"; //"0x5d87D8131b2582d385c45d86e461Ab61b876237A"; //"0x9EcDe1E7e4e5D2FF05D8C7da34F7C850aE2CD68E"; //"0x5B24f7645eec47EDd997bF8faDF3E340518af11B";
+export const FUTURES_ADDRESS = "0x6c81Fd141D97EDBeda047a7694b63637E0e1a1Ee"; //"0xc22E924B10e75045C943A2d950F44a89BC208573"; //"0x1f61A437645b403c15775184A91a6d98ED3FDAEB"; //"0x5d87D8131b2582d385c45d86e461Ab61b876237A"; //"0x9EcDe1E7e4e5D2FF05D8C7da34F7C850aE2CD68E"; //"0x5B24f7645eec47EDd997bF8faDF3E340518af11B";
 export const FUTURES_ABI = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "users",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "nfts",
+        type: "uint256",
+      },
+    ],
+    name: "BatchNFTMigrate",
+    type: "event",
+  },
   {
     anonymous: false,
     inputs: [
@@ -54,6 +73,26 @@ export const FUTURES_ABI = [
       },
     ],
     name: "Deposit",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "user", type: "address" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "nfts",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "totalNFTsMinted",
+        type: "uint256",
+      },
+    ],
+    name: "NFTMigrate",
     type: "event",
   },
   {
@@ -176,6 +215,25 @@ export const FUTURES_ABI = [
       {
         indexed: false,
         internalType: "uint256",
+        name: "oldValue",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "newValue",
+        type: "uint256",
+      },
+    ],
+    name: "UpdateMaxMint",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
         name: "oldPercentage",
         type: "uint256",
       },
@@ -187,6 +245,25 @@ export const FUTURES_ABI = [
       },
     ],
     name: "UpdateMaxTreasuryPayoutPercentage",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "prev_vault",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "vault",
+        type: "address",
+      },
+    ],
+    name: "UpdateNftVault",
     type: "event",
   },
   {
@@ -301,6 +378,18 @@ export const FUTURES_ABI = [
     type: "function",
   },
   {
+    inputs: [
+      { internalType: "address[]", name: "participants", type: "address[]" },
+    ],
+    name: "batchNFTMigrate",
+    outputs: [
+      { internalType: "uint256", name: "_users", type: "uint256" },
+      { internalType: "uint256", name: "_nfts", type: "uint256" },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "bonusApr",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
@@ -329,21 +418,14 @@ export const FUTURES_ABI = [
   },
   {
     inputs: [],
-    name: "claim",
-    outputs: [{ internalType: "bool", name: "success", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "claimCooldown",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_amount", type: "uint256" }],
-    name: "claimRDF",
+    inputs: [],
+    name: "claimNFTs",
     outputs: [{ internalType: "bool", name: "success", type: "bool" }],
     stateMutability: "nonpayable",
     type: "function",
@@ -378,17 +460,23 @@ export const FUTURES_ABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "deposit",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
     inputs: [{ internalType: "address", name: "_user", type: "address" }],
     name: "depositAPR",
     outputs: [
       { internalType: "uint256", name: "scaledAmount", type: "uint256" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address[]", name: "participants", type: "address[]" },
+    ],
+    name: "dryrunNFTMigrate",
+    outputs: [
+      { internalType: "uint256", name: "_users", type: "uint256" },
+      { internalType: "uint256", name: "_nfts", type: "uint256" },
+      { internalType: "uint256", name: "_mints", type: "uint256" },
     ],
     stateMutability: "view",
     type: "function",
@@ -499,6 +587,13 @@ export const FUTURES_ABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "historicalNFTMint",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "address", name: "_user", type: "address" }],
     name: "isEligibleForDeposit",
     outputs: [{ internalType: "bool", name: "eligible", type: "bool" }],
@@ -511,6 +606,17 @@ export const FUTURES_ABI = [
     outputs: [
       { internalType: "bool", name: "eligible", type: "bool" },
       { internalType: "uint256", name: "returnCode", type: "uint256" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_user", type: "address" }],
+    name: "isNFTEligible",
+    outputs: [
+      { internalType: "bool", name: "_eligible", type: "bool" },
+      { internalType: "uint256", name: "_nftAmount", type: "uint256" },
+      { internalType: "uint256", name: "_minted", type: "uint256" },
     ],
     stateMutability: "view",
     type: "function",
@@ -548,6 +654,13 @@ export const FUTURES_ABI = [
   },
   {
     inputs: [],
+    name: "maxMint",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "maxPayouts",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
@@ -576,6 +689,39 @@ export const FUTURES_ABI = [
     inputs: [],
     name: "minimumDeposit",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nftMinter",
+    outputs: [
+      {
+        internalType: "contract IAdministrativeNFTMinter",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nftStrikePrice",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nftVault",
+    outputs: [
+      {
+        internalType: "contract FuturesNFTMigrationVault",
+        name: "",
+        type: "address",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
@@ -662,13 +808,6 @@ export const FUTURES_ABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "address", name: "_newUser", type: "address" }],
-    name: "transfer",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
     outputs: [],
@@ -711,8 +850,22 @@ export const FUTURES_ABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "_max", type: "uint256" }],
+    name: "updateMaxMint",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "uint256", name: "_percentage", type: "uint256" }],
     name: "updateMaxTreasuryPayoutPercentage",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_vault", type: "address" }],
+    name: "updateNftVault",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
