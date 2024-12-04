@@ -664,14 +664,14 @@ export default function AccountsTable({ accounts, removeAcct }) {
                                   </span>}
                                 />}
                               </TableCell>
-                              <TableCell align="right">
+                              {false && <><TableCell align="right">
                                 {row.futuresCurrentBalance > 0 &&
                                   calculateAPRRange(row.depositAPR, dailyYield, row.limiterRate, row.futuresCompoundDeposits, row.futuresDeposits)}
                               </TableCell>
                               <TableCell align="right">
                                 {row.futuresCurrentBalance > 0 &&
                                   calculateDecay(row.depositAPR, row.limiterRate)}
-                              </TableCell>
+                                  </TableCell></>}
                               <TableCell align="right">
                                 {formatCurrency(row.futuresPayouts - row.futuresCompoundDeposits)}
                               </TableCell>
@@ -837,7 +837,7 @@ const TableHeader = ({
             <TableCell align="right">
               Futures Days Since Last Tx (Action)
             </TableCell>
-            <TableCell align="right">Futures Bonus/Total Yield
+            {false && <><TableCell align="right">Futures Bonus/Total Yield
             <div>(APR)</div>
             </TableCell>
             <TableCell align="right">
@@ -848,7 +848,7 @@ const TableHeader = ({
           higher than .5, but it caps at .5%. Personal rate decays at .0111 per day.`}
                 trigger={<span>Days Left at Max Yield</span>}
               />
-            </TableCell>
+                </TableCell></>}
             <TableCell align="right">Futures Withdrawn</TableCell>
             <TableCell align="right">Futures Cooldown 
               <div>(Days)</div>
@@ -999,7 +999,7 @@ const TotalsHeader = ({
               {formatCurrency(totals.futuresPayoutsTotal)}
             </TableCell>
             <TableCell></TableCell>
-            <TableCell align="right"><PopupHelp
+            {false && <><TableCell align="right"><PopupHelp
                 message="The number of days that your personal rate plus the base rate 
               will stay at or above .5% per day.  Personal rate decays at .011 per day, 
               but the base rate is variable."
@@ -1008,7 +1008,7 @@ const TotalsHeader = ({
               <div><span className={baseRate < .1554 ? "warning" : ""}>{Number(baseRate / .0111).toLocaleString()} days</span></div>
             </TableCell>
             
-            <TableCell></TableCell>
+                <TableCell></TableCell></>}
             <TableCell align="right">
               {formatCurrency(totals.futuresPayoutsTotal - totals.futuresCompoundedTotal)}
             </TableCell>
@@ -1016,7 +1016,7 @@ const TotalsHeader = ({
             <TableCell>{totals.futuresDepositsTotal > 0 && formatPct((totals.futuresPayoutsTotal - totals.futuresCompoundedTotal) / totals.futuresDepositsTotal) + "%"}</TableCell>
             
             <TableCell align="right">{totals.nftsToBeMintedTotal}</TableCell>
-            <TableCell align="right">{totals.nftsMinted}</TableCell>
+            <TableCell align="right">{totals.nftsMintedTotal}</TableCell>
           </>
         )}
 
