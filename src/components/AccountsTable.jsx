@@ -256,8 +256,12 @@ export default function AccountsTable({ accounts, removeAcct }) {
         ),
       0
     );
-    const rdfTotal = accounts.reduce(
-      (total, account) => total + Number(account.rdfAvailable),
+    const nftsToBeMintedTotal = accounts.reduce(
+      (total, account) => total + Number(account.nftsToBeMinted),
+      0
+    );
+    const nftsMintedTotal = accounts.reduce(
+      (total, account) => total + Number(account.nftsMinted),
       0
     );
     setTotals({
@@ -285,7 +289,8 @@ export default function AccountsTable({ accounts, removeAcct }) {
       nftRewardsTotal,
       nftTotalRewardsTotal,
       valueTotal,
-      rdfTotal,
+      nftsToBeMintedTotal,
+      nftsMintedTotal
     });
 
     //getUpdatedElephantPrice();
@@ -852,14 +857,11 @@ const TableHeader = ({
 
             <TableCell align="right">
               <PopupHelp
-                message="Rainy Day Fund. This is the amount you can 
-                         'emergency' withdraw now from your principal. 
-                         Note that your balance will be reduced by double 
-                         the amount you withdraw."
-                trigger={<span>RDF Available</span>}
+                message="Migration of Futures TV to NFTs at a price of $350 per NTF."
+                trigger={<span>NFTs to Mint</span>}
               ></PopupHelp>
             </TableCell>
-            <TableCell>Rate Limiter - Progress to next tier</TableCell>
+            <TableCell>NFTs Minted</TableCell>
           </>
         )}
 
@@ -1013,8 +1015,8 @@ const TotalsHeader = ({
             <TableCell></TableCell>
             <TableCell>{totals.futuresDepositsTotal > 0 && formatPct((totals.futuresPayoutsTotal - totals.futuresCompoundedTotal) / totals.futuresDepositsTotal) + "%"}</TableCell>
             
-            <TableCell>{formatCurrency(totals.rdfTotal)}</TableCell>
-            <TableCell></TableCell>
+            <TableCell align="right">{totals.nftsToBeMintedTotal}</TableCell>
+            <TableCell align="right">{totals.nftsMinted}</TableCell>
           </>
         )}
 
