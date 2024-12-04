@@ -258,14 +258,14 @@ const Header = () => {
                 }
               />
             )}
-            {true && (
+            {false && (
               <PriceData
                 label="Futures Daily Liabilities"
                 amount={(futuresStats.current_balance / 1e18) * 0.005}
                 prefix="$"
               />
             )}
-            {true && (
+            {false && (
               <PriceData
                 label="Futures Base Daily Yield"
                 amount={formatPct(futuresStats.dailyYield / 1e18 / 100)}
@@ -298,14 +298,14 @@ const Header = () => {
               link="https://bscscan.com/token/0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c?a=0x69C714f868855eC3F24dfff0fd5F1805642F2D86#tokenAnalytics"
             />
 
-            <PriceData
+            {false && <PriceData
               label="Rainy Day Fund"
               amount={rdfBalance}
               suffix=" BNB"
               showUSD
               bnbPrice={bnbPrice}
               link="https://bscscan.com/address/0xc6a42b74867D1F7049192FfB6d0A9D77696d18bb#analytics"
-            />
+            />}
           </div>
           <div className="price-group lp-data">
 
