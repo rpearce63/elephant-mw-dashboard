@@ -272,8 +272,7 @@ const Header = () => {
                 suffix="%"
               />
             )}
-          </div>
-          <div className="price-group lp-data">
+          
             {false && <PriceData
               label="Trunk Treasury"
               amount={trunkTreasuryBalance}
