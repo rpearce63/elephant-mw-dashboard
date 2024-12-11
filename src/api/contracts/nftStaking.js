@@ -1,16 +1,60 @@
-export const NFT_STAKING_ADDRESS = "0xB2b1D88AA427C2E1849e6D9Ab2169d57f91C4Fb3";
+export const NFT_STAKING_ADDRESS = "0x9a372cAEFE9534Dc09b87A8d99fE7C23508eC4da";
 export const NFT_STAKING_ABI = [
   {
     inputs: [
       { internalType: "contract IERC721", name: "_nft", type: "address" },
       {
+        internalType: "contract IElephantNFTTraitTracker",
+        name: "_tracker",
+        type: "address",
+      },
+      {
         internalType: "contract IERC20",
         name: "_rewardsToken",
         type: "address",
       },
+      { internalType: "contract ITRUMPET", name: "_trumpet", type: "address" },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "AddedToBlacklist",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "payer",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "wethAmount",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "usdAdmount",
+        type: "uint256",
+      },
+    ],
+    name: "Fees",
+    type: "event",
   },
   {
     anonymous: false,
@@ -34,6 +78,76 @@ export const NFT_STAKING_ABI = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "oldValue",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "newValue",
+        type: "uint256",
+      },
+    ],
+    name: "MaxFlushThreshold",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "oldValue",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "newValue",
+        type: "uint256",
+      },
+    ],
+    name: "RarityWeight",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "RemovedFromBlacklist",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
       { indexed: true, internalType: "address", name: "user", type: "address" },
       {
         indexed: false,
@@ -41,8 +155,22 @@ export const NFT_STAKING_ABI = [
         name: "reward",
         type: "uint256",
       },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "stakingReward",
+        type: "uint256",
+      },
     ],
     name: "RewardPaid",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "bool", name: "paused", type: "bool" },
+    ],
+    name: "RunStatusUpdated",
     type: "event",
   },
   {
@@ -84,9 +212,151 @@ export const NFT_STAKING_ABI = [
     type: "event",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "oldAddr",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "newAddr",
+        type: "address",
+      },
+    ],
+    name: "UpdateProtocol",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "oldSlippage",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "newSlippage",
+        type: "uint256",
+      },
+    ],
+    name: "UpdateSlippage",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+    ],
+    name: "WhitelistedAddressAdded",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+    ],
+    name: "WhitelistedAddressRemoved",
+    type: "event",
+  },
+  {
+    inputs: [{ internalType: "address", name: "addr", type: "address" }],
+    name: "addAddressToWhitelist",
+    outputs: [{ internalType: "bool", name: "success", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address[]", name: "addrs", type: "address[]" }],
+    name: "addAddressesToWhitelist",
+    outputs: [{ internalType: "bool", name: "success", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256[]", name: "tokenIds", type: "uint256[]" },
+    ],
+    name: "areEligible",
+    outputs: [
+      {
+        components: [
+          { internalType: "uint256", name: "tokenId", type: "uint256" },
+          { internalType: "uint256", name: "timestamp", type: "uint256" },
+          { internalType: "bool", name: "eligible", type: "bool" },
+        ],
+        internalType: "struct ElephantNFTStaking.Eligibility[]",
+        name: "results",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "address", name: "_user", type: "address" }],
     name: "balanceOf",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "_target", type: "address" },
+      { internalType: "uint256", name: "_wethAmount", type: "uint256" },
+    ],
+    name: "bestPath",
+    outputs: [
+      { internalType: "address[]", name: "path", type: "address[]" },
+      { internalType: "uint256", name: "directAmount", type: "uint256" },
+      { internalType: "uint256", name: "indirectAmount", type: "uint256" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "blacklistCooldown",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256[]", name: "tokenIds", type: "uint256[]" },
+      { internalType: "bool", name: "add", type: "bool" },
+    ],
+    name: "blacklistTokens",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "chainlinkProxy",
+    outputs: [
+      {
+        internalType: "contract IEACAggregatorProxy",
+        name: "",
+        type: "address",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
@@ -98,10 +368,100 @@ export const NFT_STAKING_ABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "collateralRouter",
+    outputs: [
+      {
+        internalType: "contract IUniswapV2Router02",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "coreTreasury",
+    outputs: [
+      { internalType: "contract ITreasury", name: "", type: "address" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "wethAmount", type: "uint256" }],
+    name: "estimateCollateralAmount",
+    outputs: [
+      { internalType: "uint256", name: "collateralAmount", type: "uint256" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "collateralAmount", type: "uint256" },
+    ],
+    name: "estimateCollateralToCore",
+    outputs: [
+      { internalType: "uint256", name: "wethAmount", type: "uint256" },
+      { internalType: "uint256", name: "coreAmount", type: "uint256" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "coreAmount", type: "uint256" }],
+    name: "estimateCoreToCollateral",
+    outputs: [
+      { internalType: "uint256", name: "wethAmount", type: "uint256" },
+      { internalType: "uint256", name: "collateralAmount", type: "uint256" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "collateralAmount", type: "uint256" },
+    ],
+    name: "estimateWethAmount",
+    outputs: [{ internalType: "uint256", name: "wethAmount", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "uint256", name: "_amount", type: "uint256" }],
-    name: "fund",
+    name: "feeToStake",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "flush",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    name: "isEligible",
+    outputs: [{ internalType: "bool", name: "eligible", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "isPaused",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "maxFlushThreshold",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -124,6 +484,26 @@ export const NFT_STAKING_ABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "oracle",
+    outputs: [
+      {
+        internalType: "contract IPcsPeriodicTwapOracle",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "uint256", name: "_tokenId", type: "uint256" }],
     name: "ownerOf",
     outputs: [{ internalType: "address", name: "", type: "address" }],
@@ -135,6 +515,48 @@ export const NFT_STAKING_ABI = [
     name: "percentage",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "profitPerShare",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "protocolAddress",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "rarityWeight",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "addr", type: "address" }],
+    name: "removeAddressFromWhitelist",
+    outputs: [{ internalType: "bool", name: "success", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address[]", name: "addrs", type: "address[]" }],
+    name: "removeAddressesFromWhitelist",
+    outputs: [{ internalType: "bool", name: "success", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -152,12 +574,36 @@ export const NFT_STAKING_ABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "slippage",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "uint256[]", name: "tokenIds", type: "uint256[]" },
     ],
     name: "stake",
     outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "stakingFee",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "_tokenId", type: "uint256" }],
+    name: "tokenWeight",
+    outputs: [
+      { internalType: "uint256", name: "current", type: "uint256" },
+      { internalType: "uint256", name: "staked", type: "uint256" },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -192,9 +638,29 @@ export const NFT_STAKING_ABI = [
   },
   {
     inputs: [],
-    name: "txs",
+    name: "totalWeight",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "tracker",
+    outputs: [
+      {
+        internalType: "contract IElephantNFTTraitTracker",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -203,7 +669,57 @@ export const NFT_STAKING_ABI = [
     ],
     name: "unstake",
     outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "_threshold", type: "uint256" }],
+    name: "updateMaxFlushThreshold",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
+  {
+    inputs: [{ internalType: "address", name: "_protocol", type: "address" }],
+    name: "updateProtocol",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "_weight", type: "uint256" }],
+    name: "updateRarityWeight",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "bool", name: "paused", type: "bool" }],
+    name: "updateRunStatus",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "_slippage", type: "uint256" }],
+    name: "updatesSlippage",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_user", type: "address" }],
+    name: "weightOf",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "whitelist",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  { stateMutability: "payable", type: "receive" },
 ];

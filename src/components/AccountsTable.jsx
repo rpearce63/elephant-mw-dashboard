@@ -712,10 +712,10 @@ export default function AccountsTable({ accounts, removeAcct }) {
                                 )}
                               </TableCell>
                               <TableCell align="right">
-                                {displayValue(row.nftRewards)}
+                                {displayValue(row.nftRewards  / 10e8)}
                               </TableCell>
                               <TableCell align="right">
-                                {displayValue(row.nftTotalRewards)}
+                                {displayValue(row.nftTotalRewards / 10e8)}
                               </TableCell>
                             </>
                           )}
@@ -869,7 +869,7 @@ const TableHeader = ({
           <>
             <TableCell align="right">Wallet NFTs</TableCell>
             <TableCell align="right">Staked NFTs</TableCell>
-            <TableCell align="right">NFT Rewards Available</TableCell>
+            <TableCell align="right">NFT Rewards Available (Trunk)</TableCell>
             <TableCell align="right">Total NFT Rewards</TableCell>
           </>
         )}
@@ -1025,10 +1025,10 @@ const TotalsHeader = ({
             <TableCell align="right">{totals.nftWalletTotal}</TableCell>
             <TableCell align="right">{totals.nftStakedTotal}</TableCell>
             <TableCell align="right">
-              {displayValue(totals.nftRewardsTotal)}
+              {displayValue(totals.nftRewardsTotal / 10e8)}
             </TableCell>
             <TableCell align="right">
-              {displayValue(totals.nftTotalRewardsTotal)}
+              {displayValue(totals.nftTotalRewardsTotal / 10e8)}
             </TableCell>
           </>
         )}
