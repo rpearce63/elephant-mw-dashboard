@@ -20,8 +20,9 @@ export default () => {
       const nfts = await getNFTsOfOwner(address);
       
       setNfts(nfts.sort((a,b) => b.traits.score - a.traits.score));
-      setFiltered(nfts);
       setSource(location);
+      filterNFTs();
+      
       setLoading(false)
     }
     getNfts(account);
