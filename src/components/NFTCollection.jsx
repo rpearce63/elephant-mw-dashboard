@@ -9,18 +9,19 @@ export default () => {
   const [filtered, setFiltered] = useState([])
   const {account, count, location} = useParams();
   const [loading, setLoading] = useState(false);
-  const [source, setSource] = useState("all");
+  const [source, setSource] = useState();
   
   
   useEffect(() => {
   
     const getNfts = async (address) => {
       setLoading(true);
-      setSource(location);
+      
       const nfts = await getNFTsOfOwner(address);
       
       setNfts(nfts.sort((a,b) => b.traits.score - a.traits.score));
       setFiltered(nfts);
+      setSource(location);
       setLoading(false)
     }
     getNfts(account);
@@ -33,12 +34,15 @@ export default () => {
   
   
   useEffect(() => {
-    source === "marketplace" && setFiltered(nfts.filter(nft => nft.owner === "marketplace"));
+   filterNFTs();
+  }, [source])
+  
+  const filterNFTs = () => {
+     source === "marketplace" && setFiltered(nfts.filter(nft => nft.owner === "marketplace"));
     source === "wallet" && setFiltered(nfts.filter(nft => nft.owner === "wallet"));
     source === "staked" && setFiltered(nfts.filter(nft => nft.owner === "staked"));
     source === "all" && setFiltered(nfts);
-  }, [source])
-  
+  }
   
  return <div className="nfts">
    <h3 className="page-title" style={{width: "100%"}}>Total NFTs: {nfts.length || count}
