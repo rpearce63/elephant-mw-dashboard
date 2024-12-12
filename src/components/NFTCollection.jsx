@@ -32,23 +32,33 @@ export default () => {
   
   
   useEffect(() => {
-    source === "marketplace" && setFiltered(nfts.filter(nft => nft.price > 0));
+    source === "marketplace" && setFiltered(nfts.filter(nft => nft.owner === "marketplace"));
+    source === "wallet" && setFiltered(nfts.filter(nft => nft.owner === "wallet"));
+    source === "staked" && setFiltered(nfts.filter(nft => nft.owner === "staked"));
     source === "all" && setFiltered(nfts);
   }, [source])
   
   
  return <div className="nfts">
    <h3 className="page-title" style={{width: "100%"}}>Total NFTs: {nfts.length || count}
-     
+     <Button 
+       variant={source === "all" ? "contained" : "outlined"}
+            size="small"
+            sx={{marginRight: "1em", marginLeft: "1em"}} 
+       onClick={e => setSource("all")}>All</Button>
      <Button variant={source === "marketplace" ? "contained" : "outlined"}
             size="small"
             sx={{marginRight: "1em", marginLeft: "1em"}} 
        onClick={e => setSource("marketplace")}>Marketplace</Button>
-     <Button 
-       variant={source === "all" ? "contained" : "outlined"}
+     <Button variant={source === "staked" ? "contained" : "outlined"}
             size="small"
-            sx={{marginRight: "1em"}} 
-       onClick={e => setSource("all")}>All</Button>
+            sx={{marginRight: "1em", marginLeft: "1em"}} 
+       onClick={e => setSource("staked")}>Staked</Button>
+     <Button variant={source === "wallet" ? "contained" : "outlined"}
+            size="small"
+            sx={{marginRight: "1em", marginLeft: "1em"}} 
+       onClick={e => setSource("wallet")}>Wallet</Button>
+     
    </h3>
    
   
