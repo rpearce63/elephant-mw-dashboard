@@ -376,7 +376,8 @@ export const getNFTsOfOwner = async (address) => {
   tokenIds.forEach((tokenId) =>
     calls.push(
       [nftContract, nftContract.methods.tokenURI(tokenId)],
-      [nftTracker, nftTracker.methods.getInfo(tokenId)]
+      [nftTracker, nftTracker.methods.getInfo(tokenId)],
+      [nftMarketplace, nftMarketplace.methods.getListing(tokenId)]
     )
   );
 
@@ -389,7 +390,7 @@ export const getNFTsOfOwner = async (address) => {
     results.push(...response.returnData);
   }
   const pairs = [];
-  const chunkSize = 2;
+  const chunkSize = 3;
   const returnData = results;
   for (let i = 0; i < returnData.length; i += chunkSize) {
     const chunk = returnData.slice(i, i + chunkSize);
@@ -414,7 +415,7 @@ export const getNFTsOfOwner = async (address) => {
   return uris;
 };
 
-const getNftData = ([uriData, traitsData], tokenId) => {
+const getNftData = ([uriData, traitsData, listingData], tokenId) => {
   // const [uri, traits] = await Promise.all([
   //   nftContract.methods.tokenURI(tokenId).call(),
   //   nftTracker.methods.getInfo(tokenId).call(),
@@ -427,11 +428,15 @@ const getNftData = ([uriData, traitsData], tokenId) => {
     nftTracker.methods.getInfo(tokenId),
     traitsData
   );
+  const listing = decodeReturnData(
+    nftMarketPlace.methods.getListing(tokenId),
+    listingData)
   let tokenJSON = atob(uri.split(",")[1]);
   let tokenObj = JSON.parse(tokenJSON);
   tokenObj.traits = traits;
   tokenObj.colorName = hslToColorName(traits.hue, traits.sat, traits.lum);
   tokenObj.tokenId = tokenId;
+  tokenObj.price = listing.price;
   return tokenObj;
 };
 

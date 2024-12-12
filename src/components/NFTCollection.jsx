@@ -37,7 +37,7 @@ export default () => {
                <div>color: {nft.colorName}</div>
                <div>hsl: {nft.traits.hue}, {nft.traits.sat}, {nft.traits.lum}</div>
                <div>rarity: {Number(nft.traits.score / 1e18 * 100000).toFixed(3)}</div>
-               
+               {nft.price} && <div>price: {nft.price}</div>
                </div>
             )}
  
