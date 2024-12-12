@@ -695,7 +695,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
                             <>
                               <TableCell align="right">
                                 {row.nftWalletBalance > 0 ? (
-                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance) + Number(row.nftStakingBalance)}`}>
+                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance) + Number(row.nftStakingBalance) + Number(row.nftMarketplaceBalance)}`}>
                                     {row.nftWalletBalance}
                                   </Link>
                                 ) : (
@@ -704,7 +704,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
                               </TableCell>
                               <TableCell align="right">
                                 {row.nftStakingBalance > 0 ? (
-                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance) + Number(row.nftStakingBalance)}`}>
+                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance) + Number(row.nftStakingBalance) + Number(row.nftMarketplaceBalance)}`}>
                                     {row.nftStakingBalance}
                                   </Link>
                                 ) : (
@@ -712,12 +712,12 @@ export default function AccountsTable({ accounts, removeAcct }) {
                                 )}
                               </TableCell>
                               <TableCell align="right">
-                                {row.nftStakingBalance > 0 ? (
-                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance) + Number(row.nftStakingBalance)}`}>
-                                    {row.nftStakingBalance}
+                                {row.nftMarketplaceBalance > 0 ? (
+                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance) + Number(row.nftStakingBalance) + Number(row.nftMarketplaceBalance)}`}>
+                                    {row.nftMarketplaceBalance}
                                   </Link>
                                 ) : (
-                                  row.nftStakingBalance
+                                  row.nftMarketplaceBalance
                                 )}
                               </TableCell>
                               <TableCell align="right">
@@ -878,6 +878,7 @@ const TableHeader = ({
           <>
             <TableCell align="right">Wallet NFTs</TableCell>
             <TableCell align="right">Staked NFTs</TableCell>
+            <TableCell align="right">Marketplace NFTs</TableCell>
             <TableCell align="right">NFT Rewards Available (Trunk)</TableCell>
             <TableCell align="right">Total NFT Rewards</TableCell>
           </>
@@ -1033,6 +1034,7 @@ const TotalsHeader = ({
           <>
             <TableCell align="right">{totals.nftWalletTotal}</TableCell>
             <TableCell align="right">{totals.nftStakedTotal}</TableCell>
+            <TableCell alight="right"></TableCell>
             <TableCell align="right">
               {displayValue(totals.nftRewardsTotal / 10e8, trunkPrice * .9)}
             </TableCell>
