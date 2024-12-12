@@ -241,13 +241,13 @@ const Header = () => {
               />
             )}
 
-            <PriceData
+            {false && <PriceData
               label="BNB Reserve"
               amount={lpsBal.bnbTreasuryBalance}
               showUSD
               bnbPrice={bnbPrice}
               link="https://bscscan.com/address/0x98F6c7c953Cf4cef0fd632b2509c9e349687FC92#analytics"
-            />
+            />}
 
             {false && lpsBal.emOwnedNfts && (
               <PriceData

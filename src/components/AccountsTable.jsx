@@ -110,7 +110,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
     setIncludeTrumpet(includeTrumpet);
     setIncludeStampede(false);
     setIncludeRedeem(false);
-    setIncludeFutures(includeFutures);
+    setIncludeFutures(false);
     setIncludeNfts(includeNfts);
     setIncludeUSDC(includeUSDC);
     setIncludeBUSD(includeBUSD);

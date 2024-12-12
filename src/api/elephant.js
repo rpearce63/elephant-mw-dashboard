@@ -365,13 +365,15 @@ export const processNftDataForUser = (nftWalletBalance, nftStakingBalance, _rewa
 };
 
 export const getNFTsOfOwner = async (address) => {
-  const [walletNFTs, stakedNFTs] = await Promise.allSettled([
+  const [walletNFTs, stakedNFTs, marketplaceNFTs] = await Promise.allSettled([
     nftContract.methods.tokensOfOwner(address).call(),
     nftStakingContract.methods.tokensOfOwner(address).call(),
+    nftMarketplace.methods.tokensOfOwner(address).call()
   ]);
   const held = walletNFTs.value || [];
   const staked = stakedNFTs.value || [];
-  const tokenIds = [...held, ...staked];
+  const listed = marketplaceNFTs.value || [];
+  const tokenIds = [...held, ...staked, ...listed];
 
   const calls = [];
   tokenIds.forEach((tokenId) =>
