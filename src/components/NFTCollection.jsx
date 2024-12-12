@@ -7,7 +7,7 @@ export default () => {
   
   const [nfts, setNfts] = useState([]);
   const [filtered, setFiltered] = useState([])
-  const {account, count} = useParams();
+  const {account, count, location} = useParams();
   const [loading, setLoading] = useState(false);
   const [source, setSource] = useState("all");
   
@@ -15,7 +15,8 @@ export default () => {
   useEffect(() => {
   
     const getNfts = async (address) => {
-      setLoading(true)
+      setLoading(true);
+      setSource(location);
       const nfts = await getNFTsOfOwner(address);
       
       setNfts(nfts.sort((a,b) => b.traits.score - a.traits.score));

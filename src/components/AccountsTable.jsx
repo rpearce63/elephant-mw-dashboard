@@ -704,7 +704,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
                               </TableCell>
                               <TableCell align="right">
                                 {row.nftStakingBalance > 0 ? (
-                                  <Link to={`nfts/${row.address}/${Number(row.nftStakingBalance)}/staking`}>
+                                  <Link to={`nfts/${row.address}/${Number(row.nftStakingBalance)}/staked`}>
                                     {row.nftStakingBalance}
                                   </Link>
                                 ) : (
