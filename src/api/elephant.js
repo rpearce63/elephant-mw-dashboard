@@ -350,16 +350,17 @@ export const getNFTPrice = async () => {
   return price / 1e18;
 };
 
-export const processNftDataForUser = (nftWalletBalance, nftStakingBalance, _rewards, totalRewards) => {
+export const processNftDataForUser = (nftWalletBalance, nftStakingBalance, _rewards, totalRewards, nftMarketplaceBalance) => {
   
   const nftRewards = web3.utils.fromWei(_rewards, "gwei");
   const nftTotalRewards = web3.utils.fromWei(totalRewards, "gwei");
 
   return {
-    nftWalletBalance: nftWalletBalance,
-    nftStakingBalance: nftStakingBalance,
+    nftWalletBalance,
+    nftStakingBalance,
     nftRewards,
     nftTotalRewards,
+    nftMarketplaceBalance
   };
 };
 
@@ -429,7 +430,7 @@ const getNftData = ([uriData, traitsData, listingData], tokenId) => {
     traitsData
   );
   const listing = decodeReturnData(
-    nftMarketPlace.methods.getListing(tokenId),
+    nftMarketplace.methods.getListing(tokenId),
     listingData)
   let tokenJSON = atob(uri.split(",")[1]);
   let tokenObj = JSON.parse(tokenJSON);
@@ -807,6 +808,7 @@ export const getElephantData = async (address) => {
     [nftStakingContract, nftStakingContract.methods.balanceOf(address)],
     [nftStakingContract, nftStakingContract.methods.rewardsOf(address)],
     [nftStakingContract, nftStakingContract.methods.totalRewardsOf(address)],
+    [nftMarketplace, nftMarketplace.methods.balanceOf(address)]
   ];
   //const callData = calls.map((call) => buildFunctionCall(call));
   //const results = await getMulticallResult(callData);
@@ -820,10 +822,10 @@ export const getElephantData = async (address) => {
     usdcBalance,
     rdf,
     _user, _available, _uncapped, _depositAPR, _nftEligible, futuresActions,
-    nftWalletBalance, nftStakingBalance, _rewards, totalRewards
+    nftWalletBalance, nftStakingBalance, _rewards, totalRewards, nftMarketplaceBalance
   ] = await multicallBatch(calls);
   const futures = processFuturesData(_user, _available, _uncapped, _depositAPR, futuresActions, _nftEligible);
-  const nft = processNftDataForUser(nftWalletBalance, nftStakingBalance, _rewards, totalRewards);
+  const nft = processNftDataForUser(nftWalletBalance, nftStakingBalance, _rewards, totalRewards, nftMarketplaceBalance);
 
   const userStats = {
     address,
