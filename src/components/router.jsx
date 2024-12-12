@@ -20,6 +20,6 @@ export default () => (
     <Route path="/about" component={About} />
     <Route path="/emhChart" component={LPChart} />
     <Route path="/priceChart" component={PriceChart} />
-    <Route path="/nfts/:account/:count" component={NFTCollection} />
+    <Route path="/nfts/:account/:count/:source" component={NFTCollection} />
   </Switch>
 );

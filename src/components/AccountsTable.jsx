@@ -695,7 +695,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
                             <>
                               <TableCell align="right">
                                 {row.nftWalletBalance > 0 ? (
-                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance) + Number(row.nftStakingBalance) + Number(row.nftMarketplaceBalance)}`}>
+                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance)}/wallet`}>
                                     {row.nftWalletBalance}
                                   </Link>
                                 ) : (
@@ -704,7 +704,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
                               </TableCell>
                               <TableCell align="right">
                                 {row.nftStakingBalance > 0 ? (
-                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance) + Number(row.nftStakingBalance) + Number(row.nftMarketplaceBalance)}`}>
+                                  <Link to={`nfts/${row.address}/${Number(row.nftStakingBalance)}/staking`}>
                                     {row.nftStakingBalance}
                                   </Link>
                                 ) : (
@@ -713,7 +713,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
                               </TableCell>
                               <TableCell align="right">
                                 {row.nftMarketplaceBalance > 0 ? (
-                                  <Link to={`nfts/${row.address}/${Number(row.nftWalletBalance) + Number(row.nftStakingBalance) + Number(row.nftMarketplaceBalance)}`}>
+                                  <Link to={`nfts/${row.address}/${Number(row.nftMarketplaceBalance)}/marketplace`}>
                                     {row.nftMarketplaceBalance}
                                   </Link>
                                 ) : (
