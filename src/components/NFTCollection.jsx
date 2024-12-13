@@ -10,7 +10,7 @@ export default () => {
   const {account, count, location} = useParams();
   const [loading, setLoading] = useState(false);
   const [source, setSource] = useState();
-  
+  const marketplaceAddress = "0xb6C05cfE10c5DaE4Fa8D97F14f0161e978AE42eA"
   
   useEffect(() => {
   
@@ -47,6 +47,7 @@ export default () => {
   
  return <div className="nfts">
    <h3 className="page-title" style={{width: "100%"}}>Total NFTs: {nfts.length || count}
+     {account === marketplaceAddress || <div>
      <Button 
        variant={source === "all" ? "contained" : "outlined"}
             size="small"
@@ -64,7 +65,7 @@ export default () => {
             size="small"
             sx={{marginRight: "1em", marginLeft: "1em"}} 
        onClick={e => setSource("wallet")}>Wallet</Button>
-     
+    </div> }
    </h3>
    
   
