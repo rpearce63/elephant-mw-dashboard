@@ -722,6 +722,7 @@ export default function AccountsTable({ accounts, removeAcct }) {
                               </TableCell>
                               <TableCell align="right">
                                 {displayValue(row.nftRewards  / 10e8, trunkPrice * .9)}
+                                <div>({Number(row.nftRewards * .95 / trumpetPrice / 1e9).toLocaleString()})</div>
                               </TableCell>
                               <TableCell align="right">
                                 {displayValue(row.nftTotalRewards / 10e8, trunkPrice * .9)}
@@ -879,7 +880,12 @@ const TableHeader = ({
             <TableCell align="right">Wallet NFTs</TableCell>
             <TableCell align="right">Staked NFTs</TableCell>
             <TableCell align="right">Marketplace NFTs</TableCell>
-            <TableCell align="right">NFT Rewards Available (Trunk)</TableCell>
+            <TableCell align="right">
+              <PopupHelp
+            message="Rewards must be manually claimed and will be distributed via the Trumpet contract with a 5% in and out fee."
+            trigger={<span>NFT Rewards Available (Trunk/Trumpet)</span>}
+          />
+              </TableCell>
             <TableCell align="right">Total NFT Rewards</TableCell>
           </>
         )}
@@ -1036,10 +1042,11 @@ const TotalsHeader = ({
             <TableCell align="right">{totals.nftStakedTotal}</TableCell>
             <TableCell alight="right"></TableCell>
             <TableCell align="right">
-              {displayValue(totals.nftRewardsTotal / 10e8, trunkPrice * .9)}
+              {displayValue(totals.nftRewardsTotal / 1e9, trunkPrice * .9)}
+              <div>({Number(totals.nftRewardsTotal * .95 / trumpetPrice / 1e9).toLocaleString()})</div>
             </TableCell>
             <TableCell align="right">
-              {displayValue(totals.nftTotalRewardsTotal / 10e8, trunkPrice * .9)}
+              {displayValue(totals.nftTotalRewardsTotal / 1e9, trunkPrice * .9)}
             </TableCell>
           </>
         )}
