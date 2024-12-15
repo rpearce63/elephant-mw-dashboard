@@ -18,8 +18,8 @@ export default () => {
       setLoading(true);
       
       const nfts = await getNFTsOfOwner(address);
-      
-      setNfts(nfts.sort((a,b) => a.price - b.price));
+      //|| b.traits.score - a.traits.score
+      setNfts(nfts.sort((a,b) => a.price - b.price || b.traits.score - a.traits.score));
       setSource(location);
       filterNFTs();
       
