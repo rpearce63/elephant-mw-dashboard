@@ -720,9 +720,9 @@ export default function AccountsTable({ accounts, removeAcct }) {
                                   row.nftMarketplaceBalance
                                 )}
                               </TableCell>
-                              <TableCell align="right">
+                              <TableCell align="right"><a href="https://elephant.money/unlimited" target="_blank">
                                 {displayValue(row.nftRewards  / 10e8, trunkPrice * .9)}
-                                <div>({Number(row.nftRewards * .95 / trumpetPrice / 1e9).toLocaleString()})</div>
+                                <div>({Number(row.nftRewards * .95 / trumpetPrice / 1e9).toLocaleString()})</div></a>
                               </TableCell>
                               <TableCell align="right">
                                 {displayValue(row.nftTotalRewards / 10e8, trunkPrice * .9)}
