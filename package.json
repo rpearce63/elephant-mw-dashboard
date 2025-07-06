@@ -44,7 +44,7 @@
     "not dead"
   ],
   "engines": {
-    "node": "16.x"
+    "node": "21.x"
   },
   "repository": {
     "url": "https://glitch.com/edit/#!/glitch-hello-react"
